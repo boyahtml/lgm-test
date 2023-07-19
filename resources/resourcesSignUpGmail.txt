@@ -32,6 +32,7 @@ Register-With-Gmail-Account
 Redirect-To-LGW
 #    Wait Until Location Is      ${Home}
 #    Wait Until Page Contains       Sign in, get leads
+     Sleep    10s
      Wait Until Element Is Visible      //*[@id="right"]/div/div[2]/div/div/div[3]/input[1]
      Wait Until Element Is Enabled      //*[@id="right"]/div/div[2]/div/div/div[3]/input[1]
 
