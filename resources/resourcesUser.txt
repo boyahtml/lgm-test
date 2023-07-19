@@ -1,0 +1,41 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${browser}        chrome
+${password}       Michou@307
+${email}          michelndeme@gmail.com
+${url}            https://test.lagrowthmachine.xyz
+
+*** Keywords ***
+Safe Login
+    Open Browser    ${url}/login    chrome
+    Wait Until Element Is Visible    //input[@type='password']
+    Wait Until Element Is Enabled    //input[@type='password']
+    Input Text    //input    ${email}
+    Input Text    //input[@type='password']    ${password}
+    Wait Until Element Is Visible    //*[@id="right"]/div/div[2]/div/div/div[3]/div[3]
+    Click element    //*[@id="right"]/div/div[2]/div/div/div[3]/div[3]
+    Wait Until Page Contains    Campaigns
+
+Close Notifications Frame
+    Mouse Down    //*[@id="right"]/div/div[2]/span
+    Mouse Up    //*[@id="right"]/div/div[2]/span
+
+Open The Settings Page
+    Click element    //*[@id="sidebar_comp"]/div[1]/div/div[4]
+    Wait Until Page Contains    Billing
+    Click element    //*[@id="sidebar_comp"]/div[1]/div/div[4]/div[3]/div[1]/div[2]
+    Wait Until Page Contains    Settings
+
+Edit The Form
+    Input Text    //*[@id="right"]/div/div[2]/div[2]/div/div[2]/div[1]/input    DeLacroix
+    Input Text    //*[@id="right"]/div/div[2]/div[2]/div/div[2]/div[2]/input    Jean Marc
+    Click element    //*[@id="right"]/div/div[2]/div[2]/div/div[4]/div
+
+Slecting The Outreach Menu
+    Click element    //*[@id="right"]/div/div[2]/div[1]/a[2]
+
+Changing The Radio Btn Option
+    Click element    //*[@id="right"]/div/div[2]/div[2]/div/div[4]/div[1]/div[1]
+    Click element    //*[@id="right"]/div/div[2]/div[2]/div/div[5]

@@ -1,0 +1,32 @@
+*** Settings ***
+Library     SeleniumLibrary
+
+*** Variables ***
+${browser}        chrome
+${password}       Razengan1997$
+${email}          philippesteve2.ps@gmail.com
+${url}            https://test.lagrowthmachine.xyz/login
+${campaignUrl}    https://test.lagrowthmachine.xyz/campaigns
+${campaignRecomUrl}     https://test.lagrowthmachine.xyz/campaigns/recommended
+
+*** Keywords ***
+
+Campaign Landing Page
+    Wait Until Element Is Visible   //*[@id="right"]/div/div[1]/span
+    Page Should Contain    Create Campaigns
+    Scroll Element Into View    //*[@id="right"]/div/div[2]/div
+    Page Should Contain    Browse all templates
+    Click Element   //*[@id="right"]/div/div[2]/div
+
+Campaign Create Page
+    Element Should Be Visible       //*[@id="right"]/div/div[1]/div[2]/div[1]
+    Element Should Be Visible       //*[@id="right"]/div/div[1]/div[3]
+    Wait Until Element Is Visible    //*[@id="right"]/div/div[1]/div[4]/div[1]/div[1]
+    Click Element       //*[@id="right"]/div/div[1]/div[4]/div[1]/div[1]
+    Wait Until Element Is Visible    //*[@id="right"]/div/div[1]/div[4]/div[1]/div[2]
+    Click Element       //*[@id="right"]/div/div[1]/div[4]/div[1]/div[2]
+    Wait Until Element Is Visible    //*[@id="right"]/div/div[1]/div[4]/div[1]/div[3]
+    Click Element       //*[@id="right"]/div/div[1]/div[4]/div[1]/div[3]
+    Wait Until Element Is Visible    //*[@id="right"]/div/div[1]/div[4]/div[1]/div[4]
+    Click Element       //*[@id="right"]/div/div[1]/div[4]/div[1]/div[4]
+

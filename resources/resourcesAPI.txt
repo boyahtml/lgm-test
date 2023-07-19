@@ -1,0 +1,18 @@
+*** Settings ***
+Library  RequestsLibrary
+Library  JSONLibrary
+Library  Collections
+
+*** Variables ***
+${apiUrl}  https://apiv2-test.lagrowthmachine.xyz
+${userLogin}  /usersv1/login?
+${email}   philippesteve2.ps@gmail.com
+
+*** Keywords ***
+
+Login Request
+    Create Session  ${apiUrl}${userLogin}  verify=true
+    &{body}=  Create Dictionary  email=foo  password=bar
+    &{header}=  Create Dictionary  Cache-Control=no-cache
+    ${response}=  POST On Session  mysession  /posts  data=${body}  headers=${header}
+    Status Should Be  201  ${response}  #Check Status as 201

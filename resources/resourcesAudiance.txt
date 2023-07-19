@@ -1,0 +1,14 @@
+*** Settings ***
+library  SeleniumLibrary
+
+*** Variables ***
+${browser}     chrome
+${password}      Razengan1997$
+${email}   philippesteve2.ps@gmail.com
+${url}   https://test.lagrowthmachine.xyz/login
+${urlLeads}   https://test.lagrowthmachine.xyz/leads
+${audianceTitle}   Test audiance
+${audianceDesc}   Test audiance description
+
+*** Keywords ***
+

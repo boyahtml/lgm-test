@@ -1,0 +1,54 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${browser}        chrome
+${password}       Razengan1997$
+${email}          philippesteve2.ps@gmail.com
+${url}            https://test.lagrowthmachine.xyz
+${campaignUrl}            https://test.lagrowthmachine.xyz/campaigns
+
+*** Keywords ***
+Safe Login
+    Open Browser    ${url}/login    chrome
+    Wait Until Element Is Visible    //input[@type='password']
+    Wait Until Element Is Enabled    //input[@type='password']
+    Input Text    //input    ${email}
+    Input Text    //input[@type='password']    ${password}
+    Wait Until Element Is Visible    //*[@id="right"]/div/div[2]/div/div/div[3]/div[3]
+    Click element    //*[@id="right"]/div/div[2]/div/div/div[3]/div[3]
+    Wait Until Location Is    ${campaignUrl}
+
+Open login page
+    Open Browser    ${url}    chrome
+    Wait Until Element Is Visible    //input[@type='password']
+    Wait Until Element Is Enabled    //input[@type='password']
+
+Fill inputs wrong
+    Input Text    //input    xyz.ps@gmail.com
+    Input Text    //input[@type='password']    ${password}
+
+Submit data to system
+    Click element    //*[@id="right"]/div/div[2]/div/div/div[3]/div[3]
+
+Welcome page should open
+    Wait Until Location Is    https://test.lagrowthmachine.xyz/campaigns
+    Page Should Contain    Create Campaigns
+
+Error message should display
+    Wait Until Page Contains    Either Email or Password is invalid. Please try again.
+
+Open google window
+    Click element    //div[@class='lCoei YZVTmd SmR8']
+
+Select google account
+    Wait Until Element Is Visible    //div[@class=' btn comp btn_sso sso enabled ']
+    Click element    //div[@class=' btn comp btn_sso sso enabled ']
+
+Open google_login window
+    Wait Until Page Contains    Accéder à l'application LaGrowthMachine
+    Input Text    //*[@id="identifierId"]    ${email}
+
+Close Notification
+     Mouse Down     //*[@id="sidebar_comp"]/div[1]/div/div[1]/div[1]
+     Mouse Up       //*[@id="sidebar_comp"]/div[1]/div/div[1]/div[1]

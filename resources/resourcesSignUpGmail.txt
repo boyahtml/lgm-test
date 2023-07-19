@@ -1,0 +1,39 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+
+*** Variables ***
+${Register}     https://test.lagrowthmachine.xyz/register
+${Email}        tlgm5169@gmail.com
+${Password}      lgm@1989
+${Home}         https://test.lagrowthmachine.xyz/account_tunning?mode=all
+
+
+
+*** Keywords ***
+
+#Signup GMAIL
+
+GoTo-Page-Signup
+    Click Element   //*[@id="right"]/div/div[2]/div/div/div[6]/div
+    Wait Until Location Is      ${Register}
+    Click Element   //*[@id="right"]/div/div/div/div/div[5]/div[1]
+    Wait Until Element Is Visible   //*[@id="identifierId"]
+    Wait Until Element Is Enabled   //*[@id="identifierId"]
+
+Register-With-Gmail-Account
+    Input Text  //*[@id="identifierId"]    ${Email}
+    Click Element   //*[@id="identifierNext"]
+    Wait Until Element Is Visible   //*[@id="password"]/div[1]
+    Wait Until Element Is Enabled   //*[@id="password"]/div[1]
+    Input Password  //*[@id="password"]/div[1]/div/div[1]/input      ${Password}
+    Click Element   //*[@id="passwordNext"]
+
+Redirect-To-LGW
+#    Wait Until Location Is      ${Home}
+     Wait Until Page Contains       Sign in, get leads
+
+
+
+
+
