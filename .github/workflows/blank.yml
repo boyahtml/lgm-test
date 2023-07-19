@@ -1,36 +1,42 @@
-# This is a basic workflow to help you get started with Actions
+name: 'LGM_TEST'
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  test:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - uses: actions/checkout@v2
+      - name: Execute tests
+        #uses: joonvena/robotframework-docker-action@v0.1
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          mkdir ${{github.workspace}}/reports
+          docker run --shm-size=1g -e BROWSER=headlesschrome \
+          -v ${{github.workspace}}/lgm-front:/opt/robotframework/tests:Z \
+          -v ${{github.workspace}}/reports:/opt/robotframework/reports:Z \
+          -v ${{github.workspace}}/resources:/opt/robotframework/resources:Z \
+          --user 1001:1000 \
+          ppodgorsek/robot-framework:latest
+        env:
+          BROWSER: chrome
+          ROBOT_TESTS_DIR: ${{ github.workspace }}/lgm-front
+          ROBOT_REPORTS_DIR: ${{ github.workspace }}/reports
+          REPORT_PATH: ${{ github.workspace }}/reports
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
