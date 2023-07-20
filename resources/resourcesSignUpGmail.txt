@@ -5,7 +5,7 @@ Library           SeleniumLibrary
 *** Variables ***
 ${Register}     https://test.lagrowthmachine.xyz/register
 ${Email}        tlgm5169@gmail.com
-${Password}      lgm@1989
+${Password}      lgm@test2023
 ${Home}         https://test.lagrowthmachine.xyz/account_tunning?mode=all
 
 

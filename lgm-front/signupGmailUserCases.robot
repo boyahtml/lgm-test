@@ -10,4 +10,5 @@ SignUpWithGmail
     Open login page
     GoTo-Page-Signup
     Register-With-Gmail-Account
+    Redirect-To-LGW
     Close Browser
